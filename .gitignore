@@ -33,7 +33,4 @@ AGENTS.md
 CLAUDE.md
 *_TASK.md
 
-# Claude project-specific files
-.claude/
-
 .env

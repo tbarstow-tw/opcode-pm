@@ -1,0 +1,115 @@
+# Workflow Status Template
+
+# This tracks progress through BMM methodology Analysis, Planning, and Solutioning phases.
+# Implementation phase is tracked separately in sprint-status.yaml
+
+# STATUS DEFINITIONS:
+# ==================
+# Initial Status (before completion):
+#   - required: Must be completed to progress
+#   - optional: Can be completed but not required
+#   - recommended: Strongly suggested but not required
+#   - conditional: Required only if certain conditions met (e.g., if_has_ui)
+#
+# Completion Status:
+#   - {file-path}: File created/found (e.g., "docs/product-brief.md")
+#   - skipped: Optional/conditional workflow that was skipped
+
+generated: "2025-12-03"
+project: "opcode-pm"
+project_type: "Claude Code UI/UX Enhancement for Non-Technical Users"
+selected_track: "method"
+field_type: "brownfield"
+workflow_path: "method-brownfield.yaml"
+
+workflow_status:
+  # Prerequisite - Documentation
+  - id: document-project
+    name: "Document Project"
+    phase: "prerequisite"
+    status: "docs/index.md"
+    agent: "analyst"
+    command: "/bmad:bmm:workflows:document-project"
+    purpose: "Understand existing codebase before planning"
+    completed: "2025-12-03"
+
+  # Discovery (Phase 0 - Optional)
+  - id: brainstorm-project
+    name: "Brainstorm Project"
+    phase: "discovery"
+    status: "optional"
+    agent: "analyst"
+    command: "/bmad:bmm:workflows:brainstorm-project"
+
+  # Planning (Phase 1)
+  - id: prd
+    name: "Product Requirements Document"
+    phase: "planning"
+    status: "required"
+    agent: "pm"
+    command: "/bmad:bmm:workflows:prd"
+    note: "PRD focused on new features/changes"
+
+  - id: validate-prd
+    name: "Validate PRD"
+    phase: "planning"
+    status: "optional"
+    agent: "pm"
+    command: "/bmad:bmm:workflows:validate-prd"
+
+  - id: create-ux-design
+    name: "Create UX Design"
+    phase: "planning"
+    status: "conditional"
+    condition: "if_has_ui"
+    agent: "ux-designer"
+    command: "/bmad:bmm:workflows:create-ux-design"
+
+  # Solutioning (Phase 2)
+  - id: create-architecture
+    name: "Create Architecture"
+    phase: "solutioning"
+    status: "recommended"
+    agent: "architect"
+    command: "/bmad:bmm:workflows:create-architecture"
+    note: "HIGHLY RECOMMENDED: Distills massive brownfield context into focused solution design. Prevents agent confusion."
+
+  - id: create-epics-and-stories
+    name: "Create Epics and Stories"
+    phase: "solutioning"
+    status: "required"
+    agent: "pm"
+    command: "/bmad:bmm:workflows:create-epics-and-stories"
+    note: "Break down PRD into implementable epics and stories with full context (PRD + UX + Architecture)"
+
+  - id: test-design
+    name: "Test Design"
+    phase: "solutioning"
+    status: "recommended"
+    agent: "tea"
+    command: "/bmad:bmm:workflows:test-design"
+    note: "Testability assessment before gate check - auto-detects system-level mode"
+
+  - id: validate-architecture
+    name: "Validate Architecture"
+    phase: "solutioning"
+    status: "optional"
+    agent: "architect"
+    command: "/bmad:bmm:workflows:validate-architecture"
+
+  - id: implementation-readiness
+    name: "Implementation Readiness"
+    phase: "solutioning"
+    status: "required"
+    agent: "architect"
+    command: "/bmad:bmm:workflows:implementation-readiness"
+    note: "Validates PRD + UX + Architecture + Epics cohesion before implementation"
+
+  # Implementation (Phase 3)
+  - id: sprint-planning
+    name: "Sprint Planning"
+    phase: "implementation"
+    status: "required"
+    agent: "sm"
+    command: "/bmad:bmm:workflows:sprint-planning"
+    note: "Creates sprint plan with stories"
